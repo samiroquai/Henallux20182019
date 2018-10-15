@@ -1,0 +1,18 @@
+<p>
+  hello works!
+</p>
+
+<h1>Version Template reference => LOST FOCUS!!!</h1>
+<input type="text" (change)="true" #myInput><br/>
+{{myInput.value}}
+<br/>
+
+
+<h1>Version ngModel => keypress!!!</h1>
+<input type="text" [(ngModel)]="helloMessage"><br/>
+{{helloMessage}}
+
+<h1>Choix du style</h1>
+<p [class.style1]="mustApplyStyle1" [class.style2]="mustApplyStyle2">Ce texte va être formaté</p><br/>
+<input type="radio" name="gender" (click)="changeStyleToApply('style1')"> Style 1<br>
+<input type="radio" name="gender" (click)="changeStyleToApply('style2')"> Style 2<br>

@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <h1>Client {{client.fullName}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <h2>Adresse de livraison préférée</h2>
+      <app-address [(address)]="client.shippingAddress"></app-address>
+    </div>
+    <div class="col-sm">
+      <h2>Adresse de facturation préférée</h2>
+      <app-address [(address)]="client.invoicingAddress"></app-address>
+    </div>
+    <div class="row">
+
+      <h2>Modèle sérialisé:</h2>
+      {{client | json}}
+
+    </div>
+  </div>
