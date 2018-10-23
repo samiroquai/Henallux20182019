@@ -13,3 +13,27 @@ La **connection string** est stockée hors du code pour des raisons de sécurit�
 Voir aussi http://ighenallux.pbworks.com/w/page/121274721/Gestion%20de%20la%20connection%20string 
 
 Vous pouvez également (après avoir lu la documentation officielle) vous tourner vers le blog suivant: https://garywoodfine.com/configuration-api-net-core-console-application/ qui décrit comment intégrer à une application existante la configuration en utilisant un fichier json. Attention: il faudra veiller à adapter les versions de .netcore. 
+
+## Exécution
+
+Assurez-vous que le répertoire de votre projet contienne bien un fichier appsettings.json qui contienne un objet "ConnectionStrings" et une connexion dont la clé est "StackOverflow2".
+
+![AppSettings](docs/appsettings.png)
+
+Restaurez les packages Nuget
+
+```
+dotnet restore
+```
+
+Compilez
+
+```
+dotnet build
+```
+
+Exécutez
+
+```
+dotnet run
+```
