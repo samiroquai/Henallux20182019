@@ -11,50 +11,51 @@ import { Accumulator } from './model/Accumulator';
 export class AppComponent implements OnInit {
   listeReduiteArrayFind: Forecast[];
   listeReduiteAssociativeArray: Forecast[];
-  listeReduiteVersion3: Forecast[];
+  listeReduiteClasseAccumulation: Forecast[];
   listeOriginale: Forecast[];
   //objectKeys est utilisé pour itérer sur l'associative array par ses clés. Voir template.
   private objectKeys = Object.keys;
   private tempsExecutionArrayFind: number;
   private tempsExecutionAssociativeArray: number;
-  private tempsExecutionVersion3: number;
+  private tempsExecutionClasseAccumulation: number;
   constructor(private service: WeatherService) {
 
   }
 
   ngOnInit(): void {
 
-    const reducteurVersion3 = (accumulator: Accumulator, currentValue: Forecast) => {
-      const currentDate=this.obtenirCleDate(this.convertirUnixTimeEnDate(currentValue.dt));
+    const reducerUtilisantClasseDAccumulation = (accumulator: Accumulator, previsionActuelle: Forecast) => {
+      const currentDate=previsionActuelle.obtenirCleDate();
       if(accumulator.date!==currentDate){
-        accumulator.forecasts.push(currentValue);
+        accumulator.forecasts.push(previsionActuelle);
         accumulator.date=currentDate;
       }
       return accumulator;
     };
 
-    const reducerUtilisantFind = (accumulator: Array<Forecast>, currentValue: Forecast) => {
-      const clePrevisionActuelle = this.obtenirCleDate(this.convertirUnixTimeEnDate(currentValue.dt));
-      if (!accumulator.find(previsionDejaDansAccumulateur => this.obtenirCleDate(new Date(this.convertirUnixTimeEnDate(previsionDejaDansAccumulateur.dt))) === clePrevisionActuelle)) {
-        accumulator.push(currentValue);
+    const reducerUtilisantFind = (accumulator: Array<Forecast>, previsionActuelle: Forecast) => {
+      const clePrevisionActuelle = previsionActuelle.obtenirCleDate();
+      if (!accumulator.find(previsionDejaDansAccumulateur => previsionDejaDansAccumulateur.obtenirCleDate() === clePrevisionActuelle)) {
+        accumulator.push(previsionActuelle);
       }
       return accumulator;
     };
 
     const reducerUtilisantAssociativeArray = (accumulator: any, previsionActuelle: Forecast) => {
-      const clePrevisionActuelle = this.obtenirCleDate(this.convertirUnixTimeEnDate(previsionActuelle.dt));
+      const clePrevisionActuelle = previsionActuelle.obtenirCleDate();
       if (!accumulator[clePrevisionActuelle]) {
         accumulator[clePrevisionActuelle] = previsionActuelle;
       }
       return accumulator;
     }
 
-    this.service.chargerPrevisionsMeteo().subscribe(s => {
-      this.listeOriginale = s.list;
-      this.tempsExecutionArrayFind = this.executerNFoisEtRetournerMoyenneTempsExecution(() => this.listeReduiteArrayFind = s.list.reduce(reducerUtilisantFind, []));
-      this.tempsExecutionAssociativeArray = this.executerNFoisEtRetournerMoyenneTempsExecution(() => this.listeReduiteAssociativeArray = s.list.reduce(reducerUtilisantAssociativeArray, {}));
-      this.tempsExecutionVersion3=this.executerNFoisEtRetournerMoyenneTempsExecution(()=>
-      this.listeReduiteVersion3=s.list.reduce(reducteurVersion3, {date: null, forecasts: []}).forecasts);
+    this.service.chargerPrevisionsMeteo()
+    .subscribe(liste => {
+      this.listeOriginale = liste;
+      this.tempsExecutionArrayFind = this.executerNFoisEtRetournerMoyenneTempsExecution(() => this.listeReduiteArrayFind = liste.reduce(reducerUtilisantFind, []));
+      this.tempsExecutionAssociativeArray = this.executerNFoisEtRetournerMoyenneTempsExecution(() => this.listeReduiteAssociativeArray = liste.reduce(reducerUtilisantAssociativeArray, {}));
+      this.tempsExecutionClasseAccumulation=this.executerNFoisEtRetournerMoyenneTempsExecution(()=>
+      this.listeReduiteClasseAccumulation=liste.reduce(reducerUtilisantClasseDAccumulation, {date: null, forecasts: []}).forecasts);
     });
   }
 
@@ -75,12 +76,6 @@ export class AppComponent implements OnInit {
 
 
 
-  private obtenirCleDate(date: Date): string {
-    return date.toISOString().split('T')[0];
-  }
-
-  private convertirUnixTimeEnDate(unixTime: number): Date {
-    return new Date(unixTime * 1000);
-  }
+  
   title = 'WeatherApp';
 }

@@ -32,7 +32,7 @@ export interface Sys {
 }
 
 
-export interface Forecast {
+export class Forecast {
     dt: number;
     main: Main;
     weather: Weather[];
@@ -40,6 +40,15 @@ export interface Forecast {
     wind: Wind;
     sys: Sys;
     dt_txt: string;
+
+    public obtenirCleDate(): string {
+        return this.getDate().toISOString().split('T')[0];
+    }
+
+    public getDate(): Date {
+        // dt = unix time
+        return new Date(this.dt * 1000);
+    }
 }
 
 export interface Coord {
