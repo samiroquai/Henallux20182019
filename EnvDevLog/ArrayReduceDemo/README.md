@@ -8,9 +8,10 @@ Le cas d'utilisation est le suivant: un appel à une API HTTP distante [OpenWeat
 
 Le [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) est donc utilisé ici pour "réduire" la liste originale afin de ne conserver qu'une seule entrée par jour. 
 
-Deux approches sont comparées: 
+Trois approches sont comparées: 
 * en utilisant une fonction de réduction se basant sur un tableau et la méthode [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 * en utilisant une fonction de réduction se basant sur les Associative Arrays 
+* en utilisant une classe dédiée à l'accumulation et une logique de "rupture"
 
 Chaque approche est exécutée un certain nombre de fois et le temps d'exécution moyen est affiché sous la liste réduite. Vous pourrez constater que les deux fonctions arrivent au même résultat, mais sont très différentes en termes de performances.
 
