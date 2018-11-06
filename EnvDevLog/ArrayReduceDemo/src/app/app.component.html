@@ -1,0 +1,35 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Reducer demo
+  </h1>
+  <div class="container">
+    <div class="listeOriginale">
+      <h2>Liste originale</h2>
+      <ul>
+        <li *ngFor="let item of listeOriginale">
+          {{item.dt_txt}};
+        </li>
+      </ul>
+    </div>
+    <div class="listeReduite" *ngIf="listeReduiteArrayFind">
+      <h2>Liste réduite - Array.find</h2>
+      <ul>
+        <li *ngFor="let item of listeReduiteArrayFind">
+          {{item.dt_txt}};
+        </li>
+      </ul>
+      <p>Temps de réduction: {{tempsExecutionArrayFind}}ms</p>
+    </div>
+
+    <div class="listeReduite" *ngIf="listeReduiteAssociativeArray">
+      <h2>Liste réduite - Associative Array</h2>
+      <ul>
+        <li *ngFor="let item of objectKeys(listeReduiteAssociativeArray)">
+          {{listeReduiteAssociativeArray[item].dt_txt}};
+        </li>
+      </ul>
+      <p>Temps de réduction: {{tempsExecutionAssociativeArray}}ms</p>
+    </div>
+
+  </div>

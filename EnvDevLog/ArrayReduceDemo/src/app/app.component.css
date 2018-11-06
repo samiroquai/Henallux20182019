@@ -1,0 +1,21 @@
+
+.container {
+    margin: auto;
+    padding: 10px;
+}
+.listeOriginale {
+    /* width: 15%; */
+    float: left;
+    border: 1px;
+    border-style: solid;
+    padding: 15px;
+    border-color: lightgray;
+}
+.listeReduite {
+    float: left;
+    margin-left: 15px;
+    border: 1px;
+    border-style: solid;
+    padding: 15px;
+    border-color: lightgray;
+}
