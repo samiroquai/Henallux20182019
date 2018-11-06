@@ -32,4 +32,14 @@
       <p>Temps de réduction: {{tempsExecutionAssociativeArray}}ms</p>
     </div>
 
+    <div class="listeReduite" *ngIf="listeReduiteVersion3">
+      <h2>Liste réduite - Version 3</h2>
+      <ul>
+        <li *ngFor="let item of listeReduiteVersion3">
+          {{item.dt_txt}};
+        </li>
+      </ul>
+      <p>Temps de réduction: {{tempsExecutionVersion3}}ms</p>
+    </div>
+
   </div>
