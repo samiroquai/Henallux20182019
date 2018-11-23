@@ -68,7 +68,7 @@ namespace DAL
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.StudentCourse)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_StudentCourse_StudentID");
             });
         }

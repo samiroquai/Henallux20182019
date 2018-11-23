@@ -14,34 +14,50 @@ namespace DAL
         {
             this.context = context;
         }
-        
+
+        public async Task<Student> EtudiantParIdAsync(int id)
+        {
+            return await StudentQueryBase().FirstOrDefaultAsync(student=>student.Id==id);
+        }
+
         // Les paramètres optionnels pageSize et pageIndex permettent d'implémenter le paging des résultats. 
         // Regardez la documentation sur les méthodes Skip et Take!
-        public async Task<IEnumerable<Student>> ListerTousLesEtudiantsEtLeursInscriptionsAsync(int pageSize=10, int pageIndex=0)
+        public async Task<IEnumerable<Student>> ListerTousLesEtudiantsEtLeursInscriptionsAsync(int pageSize = 10, int pageIndex = 0)
         {
             // jointures sur deux niveaux, voir mode de chargement des entités (ressources dans support de cours)
             // Quelle méthode préférer? 
             //      a) appel à Include auquel on passe un string représentant le chemin vers le concept lié à charger?
             //      b) appel à Include auquel on passe une expression représentant le chemin vers le concept lié à charger?
-            return await context.Student
-                            .Include(student => student.StudentCourse)
-                            .ThenInclude(studentCourse => studentCourse.Course)
-                            .Skip(pageIndex*pageSize)
+            return await StudentQueryBase()
+                            .Skip(pageIndex * pageSize)
                             .Take(pageSize)
                             .ToListAsync();
+        }
+
+        private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Student, Course> StudentQueryBase()
+        {
+            return context.Student
+                                        .Include(student => student.StudentCourse)
+                                        .ThenInclude(studentCourse => studentCourse.Course);
         }
 
         public Student AjouterEtudiant(string fullName, DateTime birthDate)
         {
 
-            var newStudent = new Student()
+            return AjouterEtudiant(new Student()
             {
                 FullName = fullName,
                 Birthdate = birthDate
-            };
-            context.Student.Add(newStudent);
+            });
+
+            // regardez également aux versions asynchrones des méthodes!
+        }
+
+        public Student AjouterEtudiant(Student etudiant)
+        {
+            context.Student.Add(etudiant);
             context.SaveChanges();
-            return newStudent;
+            return etudiant;
             // regardez également aux versions asynchrones des méthodes!
         }
 
@@ -91,24 +107,27 @@ namespace DAL
             await context.SaveChangesAsync();
         }
 
-        public void SupprimerEtudiant(long studentId)
+        public async Task SupprimerEtudiantAsync(long studentId)
         {
 
-            // regardez également aux versions asynchrones des méthodes!
-            // Find => seulement pour recherches sur clés primaires!
-            Student etudiantASupprimer = context.Student.Find(studentId);
+            // On réutilise la méthode existante de recherche de l'utilisateur sur base de son identifiant.
+            // Pour quelle raison? Pourquoi ne pas simplement faire un context.Student.FindAsync(studentId)? 
+            // => car pour supprimer les entités liées et exécuter les Cascade Delete (si configurés)
+            //    il faut que les entités liées aient été chargées dans le contexte => il faut des Include!
+            Student etudiantASupprimer = await EtudiantParIdAsync((int)studentId);
             if (etudiantASupprimer != null)
             {
                 context.Student.Remove(etudiantASupprimer);
                 // regardez également aux versions asynchrones des méthodes!
+                // Attention: et si des inscriptions référencent encore l'étudiant à supprimer? Delete en cascade? Voir la configuration de votre mapping Code Objet/DB Relationnelle (classe XXXContext)
                 context.SaveChanges();
             }
         }
 
-        public void ModifierEtudiant(Student etudiant)
+        public Student ModifierEtudiant(Student etudiant)
         {
             // 2 cas de figures: 
-            
+
             // 1: Si l'étudiant a été préalablement récupéré depuis le contexte (la même instance de DbContext que celle utilisée dans cette méthode)  via une des méthodes adéquates (ex: méthode Find, First...)
             // alors l'instance est déjà chargée dans le contexte et surveillée par le change tracker.
             // Le change tracker intégré au contexte va être averti que l'instance
@@ -120,14 +139,14 @@ namespace DAL
 
             // Ce mode de fonctionnement par entités détachées peut être utile pour des scenarii où la récupération de l'entitée et la sauvegarde des modifications ne se font pas en utilisant la même instance de DbContext. Typiquement, ce pourrait être le cas dans vos API's REST qui sont stateless. Une requête HTTP GET => obtenir les infos de l'étudiant. Plus tard, une requête HTTP PUT => mettre à jour l'étudiant. Chaque requête a sa propre instance de DbContext et il faut donc rattacher les entités lors du PUT. 
 
-            if(context.Entry(etudiant).State==EntityState.Detached)
+            if (context.Entry(etudiant).State == EntityState.Detached)
             {
-                context.Attach(etudiant).State=EntityState.Modified;
+                context.Attach(etudiant).State = EntityState.Modified;
             }
 
             // regardez également aux versions asynchrones des méthodes!
             context.SaveChanges();
-
+            return etudiant;
         }
     }
 }
