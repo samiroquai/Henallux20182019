@@ -23,7 +23,7 @@ namespace DAL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                throw new NotSupportedException("Veuillez utiliser le constructeur de Labo3Context en lui passant une instance de DbContextOptions<Labo3Context>");
+                throw new NotSupportedException("Veuillez utiliser le constructeur de Labo3Context en lui passant une instance de DbContextOptions<Labo3Context> "+Environment.CurrentDirectory);
             }
         }
 

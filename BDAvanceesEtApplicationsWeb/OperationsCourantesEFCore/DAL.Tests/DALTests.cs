@@ -6,11 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Model;
-namespace Tests
+using Microsoft.Extensions.Configuration;
+using System.IO;
+
+namespace DAL.Tests
 {
     [TestClass]
     public class DALTests
     {
+        private static IConfiguration configuration;
         private DAL.DataAccess dataAccess;
         [TestInitialize]
         public void Setup()
@@ -20,15 +24,23 @@ namespace Tests
             // voir https://www.meziantou.net/2018/02/12/mstest-v2-test-lifecycle-attributes 
             dataAccess = new DataAccess(GetContext());
         }
+        [AssemblyInitialize]
+        public static void Configure(TestContext context){
+             configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+        }
+
 
         protected virtual Labo3Context GetContext()
         {
-            DbContextOptionsBuilder<Labo3Context> builder = new DbContextOptionsBuilder<Labo3Context>();
-            string connectionString = null;
+            var configurationBuilder = new DbContextOptionsBuilder<Labo3Context>();
+            string connectionString = configuration.GetConnectionString("Labo3");
             if (connectionString == null)
-                throw new NotSupportedException("Veuillez spécifier votre connection string :). L'idéal étant de la récupérer depuis la configuration (voir labo et autre projet exemple à disposition)");
-            builder.UseSqlServer(connectionString);
-            return new Labo3Context(builder.Options);
+                throw new NotSupportedException("Veuillez spécifier votre connection string dans un fichier nommé appSettings.json :). Voir https://github.com/samiroquai/Henallux20182019/tree/master/BDAvanceesEtApplicationsWeb/ComparaisonEFCoreADONet");
+            configurationBuilder.UseSqlServer(connectionString);
+            return new Labo3Context(configurationBuilder.Options);
         }
 
         [TestMethod]
@@ -186,7 +198,7 @@ namespace Tests
             Student etudiant = dataAccess.AjouterEtudiant(nomEtudiantUnique, dateNaissance);
 
             // ACT
-            dataAccess.SupprimerEtudiant(etudiant.Id);
+            await dataAccess.SupprimerEtudiantAsync(etudiant.Id);
 
             //ASSERT
             bool estEtudiantToujoursPresent = EstEtudiantRetrouve(nomEtudiantUnique, dateNaissance);
