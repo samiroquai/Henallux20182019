@@ -31,7 +31,7 @@ namespace api
         {
 
             //nécessite namespace Microsoft.EntityFrameworkCore
-            services.AddDbContext<Labo3Context>(config=>config.UseSqlServer(Configuration.GetConnectionString("Labo3")));
+            services.AddDbContext<WebApiDemoContext>(config=>config.UseSqlServer(Configuration.GetConnectionString("Labo3")));
             services.AddTransient<DataAccess>();
             // Configuration d'auto mapper: http://docs.automapper.org/en/stable/Configuration.html 
             AutoMapper.Mapper.Initialize(config=>config.AddProfile<Infrastructure.MappingProfile>());
@@ -56,7 +56,7 @@ namespace api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

@@ -9,8 +9,8 @@ namespace DAL
     // L'idéal est de masquer l'utilisation d'EF derrière une façade. Objectif: pouvoir changer l'implémentation de la DAL si le besoin apparait. 
     public class DataAccess
     {
-        private readonly Labo3Context context;
-        public DataAccess(Labo3Context context)
+        private readonly WebApiDemoContext context;
+        public DataAccess(WebApiDemoContext context)
         {
             this.context = context;
         }

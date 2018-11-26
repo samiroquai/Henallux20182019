@@ -33,14 +33,14 @@ namespace DAL.Tests
         }
 
 
-        protected virtual Labo3Context GetContext()
+        protected virtual WebApiDemoContext GetContext()
         {
-            var configurationBuilder = new DbContextOptionsBuilder<Labo3Context>();
+            var configurationBuilder = new DbContextOptionsBuilder<WebApiDemoContext>();
             string connectionString = configuration.GetConnectionString("Labo3");
             if (connectionString == null)
                 throw new NotSupportedException("Veuillez spécifier votre connection string dans un fichier nommé appSettings.json :). Voir https://github.com/samiroquai/Henallux20182019/tree/master/BDAvanceesEtApplicationsWeb/ComparaisonEFCoreADONet");
             configurationBuilder.UseSqlServer(connectionString);
-            return new Labo3Context(configurationBuilder.Options);
+            return new WebApiDemoContext(configurationBuilder.Options);
         }
 
         [TestMethod]

@@ -14,6 +14,7 @@ namespace Model
         public DateTime? Birthdate { get; set; }
         public string FullName { get; set; }
         public string Remark { get; set; }
+        public byte[] RowVersion { get; set; }
 
         public ICollection<StudentCourse> StudentCourse { get; set; }
     }

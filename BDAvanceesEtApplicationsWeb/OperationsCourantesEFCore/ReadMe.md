@@ -1,6 +1,6 @@
-# Opérations courantes en EF
+# Web API ASP.NET Core utilisant Entity Framework Core
 
-Ce projet de démo tente d'illustrer la manière de réaliser certaines opérations courantes en EF (en l'occurence le scope CRUD). Il s'appuie sur le domaine que vous avez utilisé pour le labo DAL dans le cadre du cours. (notion de **Student**, **Course**, **StudentCourse**)
+Ce projet de démo tente d'illustrer la manière de réaliser certaines opérations courantes (CRUD) dans une API REST réalisée en ASP.NET Core utilisant EF Core. Il s'appuie sur le domaine que vous avez utilisé pour le labo DAL dans le cadre du cours. (notion de **Student**, **Course**, **StudentCourse**)
 
 Lisez bien les commentaires répartis dans le code. 
 
@@ -8,9 +8,25 @@ Privilégiez les versions asynchrones des méthodes lorsque celles-ci sont dispo
 
 Si votre code ne compile pas suite à des erreurs de types "méthodes inconnues", vérifiez bien les namespaces. En effet, beaucoup de méthodes utilisées en EF Core ou en Linq sont des méthodes d'extension.
 
+## Configuration
+
+Dans le répertoire des sources de votre API, créez un fichier appSettings.json ou utilisez le fichier appSettings.Development.json. Placez-y la connection string. La base de données se situe sur le serveur habituel. Connectez-vous à cette dernière à l'aide de votre login/mdp. 
+
+![ConnectionString](config.jpg)
+
+## Remarques sur l'API
+
+L'API utilise AutoMapper pour faciliter la tâche de projection d'un modèle vers un autre (DTO<->Data Model). AutoMapper nécessite de la configuration (tel type mappé vers tel autre type...). Regardez la classe Startup.cs pour en apprendre davantage sur celle-ci et lisez [la documentation sur les profils](http://docs.automapper.org/en/stable/Configuration.html). 
+
+De plus, le mapper est injecté aux différents controllers. Cela nécessite de  configurer l'injection de dépendances. Voir 
+- la classe Startup 
+- [la documentation officielle](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1)
+- [la documentation de AutoMapper pour intégration à ASP.NET Core](https://dotnetcoretutorials.com/2017/09/23/using-automapper-asp-net-core/)
+
 ## Exécution du code
 
 Cette solution est constituée de plusieurs projets: 
+* api : l'API REST (.NET Core 2.1)
 * Model: le modèle du domaine d'application
 * DAL : la couche de persistence de ce modèle
 * Tests: de type [mstest](https://github.com/dotnet/docs/blob/master/docs/core/testing/unit-testing-with-mstest.md). Il s'agit de tests unitaires. 
