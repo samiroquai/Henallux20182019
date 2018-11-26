@@ -33,12 +33,7 @@ Cette solution est constituée de plusieurs projets:
 
 Le projet de test illustre comment appeler la DAL (différents cas de tests). 
 
-N'essayez pas de lancer ces tests, ils ne fonctionneront probablement pas chez vous. En effet
-
-* il risque d'exister des différences au niveau du nommage de vos tables/attributs, rendant le mapping caduque 
-* vous avez peut-être utilisé des schémas de DB différents.
-
-Contentez-vous d'une lecture attentive du code et des commentaires qui accompagnent ce dernier
+Avant d'utiliser les tests, assurez-vous qu'un fichier nommé appsettings.json existe à la racine du projet de tests et contient la connection string adéquate (voir section "configuration" ci-dessus). 
 
 ## Remarques
 
