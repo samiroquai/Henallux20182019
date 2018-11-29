@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace api.DTO
 {
@@ -7,6 +8,8 @@ namespace api.DTO
     {
         public long Id { get; set; }
         public DateTime? Birthdate { get; set; }
+        [Required]
+        [MinLength(3)]
         public string FullName { get; set; }
         public string Remark { get; set; }
 
