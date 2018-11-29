@@ -7,6 +7,7 @@ namespace api.DTO
         public long StudentId { get; set; }
         public long CourseId { get; set; }
         public int? Cote { get; set; }
+        public byte[] RowVersion { get; set; }
 
     }
 }

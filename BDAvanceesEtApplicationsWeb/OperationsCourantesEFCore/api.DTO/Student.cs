@@ -12,6 +12,7 @@ namespace api.DTO
         [MinLength(3)]
         public string FullName { get; set; }
         public string Remark { get; set; }
+        public byte[] RowVersion { get; set; }
 
         public IEnumerable<StudentCourse> StudentCourse { get; set; }
     }

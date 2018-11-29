@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Model;
 namespace DAL
 {
-    public partial class Labo3Context : DbContext
+    public partial class WebApiDemoContext : DbContext
     {
-        private Labo3Context()
+        public WebApiDemoContext()
         {
         }
 
-        public Labo3Context(DbContextOptions<Labo3Context> options)
+        public WebApiDemoContext(DbContextOptions<WebApiDemoContext> options)
             : base(options)
         {
         }
@@ -23,7 +23,7 @@ namespace DAL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                throw new NotSupportedException("Veuillez utiliser le constructeur de Labo3Context en lui passant une instance de DbContextOptions<Labo3Context> "+Environment.CurrentDirectory);
+                throw new NotSupportedException("Veuillez utiliser le constructeur en lui passant une instance de DbContextOptions<WebApiDemoContext>");
             }
         }
 
@@ -36,6 +36,10 @@ namespace DAL
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.RowVersion)
+                    .IsRequired()
+                    .IsRowVersion();
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -49,6 +53,10 @@ namespace DAL
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Remark).HasMaxLength(50);
+
+                entity.Property(e => e.RowVersion)
+                    .IsRequired()
+                    .IsRowVersion();
             });
 
             modelBuilder.Entity<StudentCourse>(entity =>
@@ -59,10 +67,14 @@ namespace DAL
 
                 entity.Property(e => e.CourseId).HasColumnName("CourseID");
 
+                entity.Property(e => e.RowVersion)
+                    .IsRequired()
+                    .IsRowVersion();
+
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.StudentCourse)
                     .HasForeignKey(d => d.CourseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_StudentCourse_CourseID");
 
                 entity.HasOne(d => d.Student)
