@@ -30,8 +30,12 @@ namespace JwtAuthenticationDemo.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] DTO.LoginModel loginModel)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            // Depuis ASP.NET Core 2.1, ces deux lignes sont superflues.
+            // En effet, le framework prend en charge le retour d'une erreur 400 
+            // incluant le détail de cette dernière si la validation ne s'est pas bien déroulée. 
+            // Il est possible de désactiver ce mode de fonctionnement. Pour plus d'informations, voir https://docs.microsoft.com/en-us/aspnet/core/web-api/index?view=aspnetcore-2.1#automatic-http-400-responses 
+            // if (!ModelState.IsValid)
+            //     return BadRequest(ModelState);
 
             var repository = new JwtAuthenticationDemo.Model.AuthenticationRepository();
             Model.User userFound = repository.GetUsers().FirstOrDefault(user => user.UserName == loginModel.UserName && user.Password == loginModel.Password);
