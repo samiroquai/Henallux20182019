@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -10,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 namespace ImageStorageDemoNetCore.Controllers
 {
@@ -17,6 +20,7 @@ namespace ImageStorageDemoNetCore.Controllers
     [ApiController]
     public class PhotosController : ControllerBase
     {
+        private const string PARAM_ID_CONCEPT_LIE = "IdConceptLie";
         private static readonly FormOptions _defaultFormOptions = new FormOptions();
 
         [HttpPost()]
@@ -92,14 +96,22 @@ namespace ImageStorageDemoNetCore.Controllers
                 // reads the headers for the next section.
                 section = await reader.ReadNextSectionAsync();
             }
-         
-
-            return Ok(new {
-                FilePath=targetFilePath
+            IDictionary<string, StringValues> parameters = formAccumulator.GetResults();
+            if (parameters.ContainsKey(PARAM_ID_CONCEPT_LIE))
+            {
+                Debugger.Log((int)LogLevel.Information, "Info", parameters[PARAM_ID_CONCEPT_LIE].ToString());
+            }
+            else
+            {
+                Debugger.Log((int)LogLevel.Error, "Info", $"La requête ne contenait pas le paramètre {PARAM_ID_CONCEPT_LIE}");
+            }
+            return Ok(new
+            {
+                FilePath = targetFilePath
             });
         }
 
-         private static Encoding GetEncoding(MultipartSection section)
+        private static Encoding GetEncoding(MultipartSection section)
         {
             MediaTypeHeaderValue mediaType;
             var hasMediaTypeHeader = MediaTypeHeaderValue.TryParse(section.ContentType, out mediaType);
