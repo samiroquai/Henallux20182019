@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <form [formGroup]="uploadForm">
+    <div class="form-group">
+      <label for="idConceptLie">Concept lié: </label>
+      <input class="form-control" type="text" id="idConceptLie" formControlName="idConceptLie">
+    </div>
+    <div class="form-group">
+      <label for="fichier">Fichier</label>
+      <input class="form-control" type="file" id="fichier" formControlName="fichier" (change)="onFileChange($event)"
+        autoComplete="off">
+    </div>
+    <button  class="btn btn-primary" type="submit" (click)="upload()">Envoyer</button>
+  </form>
+</div>

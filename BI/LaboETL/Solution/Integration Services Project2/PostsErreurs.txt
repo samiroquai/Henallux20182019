@@ -1,0 +1,490 @@
+Id,AcceptedAnswerId,AnswerCount,Body,ClosedDate,CommentCount,CommunityOwnedDate,CreationDate,FavoriteCount,LastActivityDate,LastEditDate,LastEditorDisplayName,LastEditorUserId,OwnerUserId,ParentId,PostTypeId,Score,Tags,Title,ViewCount,Erreur
+18,0,0,<p>For a table like this:</p>
+
+<pre><code>CREATE TABLE binary_data (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    description CHAR(50),
+    bin_data LONGBLOB,
+    filename CHAR(50),
+    filesize CHAR(50),
+    filetype CHAR(50)
+);
+</code></pre>
+
+<p>Here is a PHP example:</p>
+
+<pre><code>&lt;?php
+    // store.php3 - by Florian Dittmer &lt;dittmer@gmx.net&gt;
+    // Example php script to demonstrate the storing of binary files into
+    // an sql database. More information can be found at http://www.phpbuilder.com/
+?&gt;
+
+&lt;html&gt;
+    &lt;head&gt;&lt;title&gt;Store binary data into SQL Database&lt;/title&gt;&lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;?php
+            // Code that will be executed if the form has been submitted:
+
+            if ($submit) {
+                // Connect to the database (you may have to adjust
+                // the hostname, username or password).
+
+                mysql_connect("localhost", "root", "password");
+                mysql_select_db("binary_data");
+
+                $data = mysql_real_escape_string(fread(fopen($form_data, "r"), filesize($form_data)));
+
+                $result = mysql_query("INSERT INTO binary_data (description, bin_data, filename, filesize, filetype) ".
+                                    "VALUES ('$form_description', '$data', '$form_data_name', '$form_data_size', '$form_data_type')");
+
+                $id= mysql_insert_id();
+                print "&lt;p&gt;This file has the following Database ID: &lt;b&gt;$id&lt;/b&gt;";
+
+                mysql_close();
+            } else {
+
+                // else show the form to submit new data:
+        ?&gt;
+        &lt;form method="post" action="&lt;?php echo $PHP_SELF; ?&gt;" enctype="multipart/form-data"&gt;
+            File Description:&lt;br&gt;
+            &lt;input type="text" name="form_description"  size="40"&gt;
+            &lt;input type="hidden" name="MAX_FILE_SIZE" value="1000000"&gt;
+            &lt;br&gt;File to upload/store in database:&lt;br&gt;
+            &lt;input type="file" name="form_data"  size="40"&gt;
+            &lt;p&gt;&lt;input type="submit" name="submit" value="submit"&gt;
+        &lt;/form&gt;
+
+        &lt;?php
+            }
+        ?&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+,,2,,2008-08-01 05:12:44.193000000,0,2016-06-02 05:56:26.060000000,2016-06-02 05:56:26.060000000,Jeff Atwood,126039,0,17,2,40,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+31,0,0,<p>The parent <code>div</code> needs to have a defined <code>width</code>, either in pixels or as a percentage. In Internet&nbsp;Explorer&nbsp;7, the parent <code>div</code> needs a defined <code>width</code> for child percentage <code>div</code>s to work correctly.</p>
+,,0,,2008-08-01 12:22:51.593000000,0,2016-03-19 06:10:52.170000000,2016-03-19 06:10:52.170000000,,63550,0,6,2,111,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+34,0,8,<p>How do I forcefully unload a <code>ByteArray</code> from memory in ActionScript 3?</p>
+
+<p>I have tried (without success):</p>
+
+<pre><code>byteArray.length = 0;
+byteArray = new ByteArray();
+</code></pre>
+
+<p>And</p>
+
+<pre><code>for ( var i:int=0; i &lt; byteArray.length; i++ ) {
+    byteArray[i] = null;
+}
+</code></pre>
+,,0,,2008-08-01 12:30:57.630000000,2,2016-05-28 20:12:42.107000000,2015-12-16 05:35:30.353000000,,1213296,0,0,1,59,<actionscript-3><flex><bytearray>,Unloading a ByteArray in Actionscript 3,7489,Pas de correspondance trouvée pour la recherche de l'auteur
+61,0,1,<p>Where can I find a list of the MIME types and identifying characters for Office 2007 files?</p>
+
+<p>I have an upload form that is restricting uploads based on extension and identifying characters, but I cannot seem to find the Office 2007 MIME types.</p>
+,,0,2013-04-11 20:15:23.130000000,2008-08-01 13:17:20.640000000,2,2017-01-02 03:57:33.723000000,2013-04-11 20:15:23.130000000,Mark Biek,1454806,0,0,1,31,<office-2007><file-type>,Office 2007 File Type, Mime Types and Identifying Characters,2162,Pas de correspondance trouvée pour la recherche de l'auteur
+89,0,0,<p>I've had problems with JavaHL in Eclipse Ganymede, when it worked fine in Eclipse Europa.  I'm not sure how Aptana is different, but try either upgrading JavaHL or switching to the pure-java SVNKit implementation within the Subclipse config.</p>
+,,0,,2008-08-01 14:41:01.110000000,0,2008-08-01 14:41:01.110000000,,,0,0,79,2,4,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+98,0,0,<p>Maybe. But you have bigger problems. <code>gettimeofday()</code> can result in incorrect timings if there are processes on your system that change the timer (ie, ntpd). On a "normal" linux, though, I believe the resolution of <code>gettimeofday()</code> is 10us. It can jump forward and backward and time, consequently, based on the processes running on your system. This effectively makes the answer to your question no.</p>
+
+<p>You should look into <code>clock_gettime(CLOCK_MONOTONIC)</code> for timing intervals. It suffers from several less issues due to things like multi-core systems and external clock settings.</p>
+
+<p>Also, look into the <code>clock_getres()</code> function.</p>
+,,5,,2008-08-01 14:53:47.497000000,0,2012-10-14 12:28:51.043000000,2012-10-14 12:28:51.043000000,lbrandy,967315,2089740,88,2,49,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+111,0,0,<p>I have been using the 64Bit version of TortoiseSVN for ages and I have never had issues with it on Windows 64Bit or Vista 64Bit. I am currently not aware of any other similiar SVN clients that do work on Vista. Is it possible the problem could lie within the configuration of TortoiseSVN or even the installation of Vista? Is the problem occurring on Vista native or SP 1?</p>
+,,2,,2008-08-01 15:27:23.093000000,0,2008-08-01 15:27:23.093000000,,,0,146270,108,2,37,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+147,0,0,<p>The <em>hook</em> and <em>listener</em> method is the most commonly used, but there are other things you can do.  Depending on the size of your app, and who your going to allow see the code (is this going to be a FOSS script, or something in house) will influence greatly how you want to allow plugins.</p>
+
+<p>kdeloach has a nice example, but his implementation and hook function is a little unsafe.  I would ask for you to give more information of the nature of php app your writing, And how you see plugins fitting in.  </p>
+
+<p>+1 to kdeloach from me.</p>
+,,0,,2008-08-01 17:23:43.777000000,0,2008-08-01 17:23:43.777000000,,,0,146637,42,2,27,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+152,0,0,<p>The funny thing is i wrote a php media gallery for all my music 2 days ago. I had a similar problem.  Im using <a href="http://musicplayer.sourceforge.net/" rel="noreferrer">http://musicplayer.sourceforge.net/</a> for the player. and the playlis are built via php.  all music request go there a script called xfer.php?file=WHATEVER</p>
+
+<pre><code>$filename = base64_url_decode($_REQUEST['file']);
+header("Cache-Control: public");
+header("Content-Description: File Transfer");
+header('Content-disposition: attachment; filename='.basename($filename));
+header("Content-Transfer-Encoding: binary");
+header('Content-Length: '. filesize($filename));
+
+//  Put either file counting code here. either a db or static files
+
+//
+
+readfile($filename);  //and spit the user the file
+
+
+function base64_url_decode($input) {
+    return base64_decode(strtr($input, '-_,', '+/='));
+}
+</code></pre>
+
+<p>And when you call files use something like </p>
+
+<pre><code>function base64_url_encode($input) {
+     return strtr(base64_encode($input), '+/=', '-_,');
+}
+</code></pre>
+
+<p><a href="http://us.php.net/manual/en/function.base64-encode.php" rel="noreferrer">http://us.php.net/manual/en/function.base64-encode.php</a></p>
+
+<p>If you are using some javascript or a flash player (JW player for example) that requires the actual link to be an mp3 file or whatever, you can append the text "&amp;type=.mp3" so the final linke becomes something like "www.example.com/xfer.php?file=34842ffjfjxfh&amp;type=.mp3". That way it looks like it ends with an mp3 extension without affecting the file link.</p>
+,,4,,2008-08-01 17:33:58.750000000,0,2008-08-10 12:16:40.330000000,2008-08-10 12:16:40.330000000,Grant,30,146637,146,2,35,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+154,0,0,<p>Well, what is the nature of the flat databases.  Are they large or small.  Is it simple arrays with arrays in them?  if its something simple say userprofiles built as such:</p>
+
+<pre><code>$user = array("name" =&gt; "dubayou", 
+              "age" =&gt; 20,
+              "websites" =&gt; array("dubayou.com","willwharton.com","codecream.com"),
+              "and_one" =&gt; "more");
+</code></pre>
+
+<p>and to save or update the <em>db record</em> for that user.</p>
+
+<pre><code>$dir = "../userdata/";  //make sure to put it bellow what the server can reach.
+file_put_contents($dir.$user['name'],serialize($user));
+</code></pre>
+
+<p>and to load the <em>record</em> for the user</p>
+
+<pre><code>function &amp;get_user($name){
+    return unserialize(file_get_contents("../userdata/".$name));
+}
+</code></pre>
+
+<p>but again this implementation will vary on the application and nature of the database you need.</p>
+,,0,,2008-08-01 17:45:06.513000000,0,2012-10-14 12:26:34.197000000,2012-10-14 12:26:34.197000000,,967315,146637,85,2,62,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+165,0,0,<p>You can use a <a href="http://sharpdevelop.net/OpenSource/SharpZipLib/" rel="nofollow noreferrer">3rd-party library such as SharpZip</a> as Tom pointed out.</p>
+
+<p>Another way (without going 3rd-party) is to use the Windows Shell API. You'll need to set a reference to the Microsoft Shell Controls and Automation COM library in your C# project. Gerald Gibson has an example at:</p>
+
+<p><s><a href="http://geraldgibson.net/dnn/Home/CZipFileCompression/tabid/148/Default.aspx" rel="nofollow noreferrer">http://geraldgibson.net/dnn/Home/CZipFileCompression/tabid/148/Default.aspx</a></s> </p>
+
+<p><a href="http://web.archive.org/web/20130724085455/http://geraldgibson.net/dnn/Home/CZipFileCompression/tabid/148/Default.aspx" rel="nofollow noreferrer">Internet Archive's copy of the dead page</a></p>
+,,0,,2008-08-01 18:04:25.023000000,0,2016-01-20 15:31:50.297000000,2016-01-20 15:31:50.297000000,,1324,0,145,2,5,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+175,0,3,<p>I want to be able to display a normal YouTube video with overlaid annotations, consisting of coloured rectangles for each frame. The only requirement is that this should be done programmatically. YouTube has annotations now, but require you to use their front end to create them by hand. I want to be able to generate them. What's the best way of doing this?</p>
+
+<p>Some ideas:</p>
+
+<blockquote>
+  <ol>
+  <li>Build your own Flash player (ew?)</li>
+  <li>Somehow draw over the YouTube Flash player. Will this work?</li>
+  <li>Reverse engineer &amp; hijack YouTube's annotation system. Either messing with the local files or redirecting its attempt to download
+  the annotations. (using Greasemonkey? Firefox plugin?)</li>
+  </ol>
+</blockquote>
+
+<p>Idea that doesn't count: </p>
+
+<blockquote>
+  <p>download the video</p>
+</blockquote>
+,,0,,2008-08-01 18:36:14.070000000,1,2016-12-20 19:28:24.513000000,2016-12-20 19:28:24.513000000,,3155639,2089740,0,1,35,<youtube><reverse-engineering>,Annotating YouTube videos programmatically,6455,Pas de correspondance trouvée pour la recherche de l'auteur
+180,539,9,<p>This is something I've pseudo-solved many times and never quite found a solution. That's stuck with me. The problem is to come up with a way to generate <code>N</code> colors, that are as distinguishable as possible where <code>N</code> is a parameter.</p>
+,,0,,2008-08-01 18:42:19.343000000,19,2016-04-30 11:29:24.137000000,2015-12-26 08:31:02.497000000,,2922639,2089740,0,1,60,<algorithm><language-agnostic><colors><color-space>,Function for creating color wheels,13450,Pas de correspondance trouvée pour la recherche de l'auteur
+227,2943318,8,<p>I have the following arrays:</p>
+
+<pre><code>$artist = array("the roots", "michael jackson", "billy idol", "more", "and more", "and_YET_MORE");
+$count = array(5, 3, 9, 1, 1, 3);
+</code></pre>
+
+<p>I want to generate a tag cloud that will have artists with a higher number in <code>$count</code> enclosed in <code>h6</code> tags and the lowest enclosed <code>h1</code> tags.</p>
+,,0,,2008-08-01 21:40:55.833000000,9,2017-02-20 13:20:55.743000000,2012-06-28 08:11:23.453000000,Adam Bellaire,500729,146637,0,1,59,<php><arrays><cloud><tag-cloud>,What's the best way to generate a tag cloud from an array using h1 through h6 for sizing?,4703,Pas de correspondance trouvée pour la recherche de l'auteur
+562,0,1,<p>Uploading my first decently sized web app to my shared host provided me with a fresh set of challenges, by which I mean, sleepless nights. The issue was that I had most certainly not developed my application for medium trust (or had any clue what that was.) </p>
+
+<p>I mitigated all of the issues, save one. </p>
+
+<p>I had written an installer for the admin to be able to specify their connectionstring and other preferences, but I cannot find a way to write to a web.config in medium trust. Does anyone have a solution, or should I just be putting preferences in another file?</p>
+,,1,,2008-08-02 21:39:11.733000000,2,2015-09-25 11:46:57.640000000,2008-11-08 15:45:43.340000000,Gulzar,4337,0,0,1,32,<c#><asp.net><medium-trust>,How to write to Web.Config in Medium Trust?,3172,Pas de correspondance trouvée pour la recherche de l'auteur
+601,602,5,<p>I'm looking for a performant, reasonably robust RNG using no special hardware. It can use mathematical methods (Mersenne Twister, etc), it can "collect entropy" from the machine, whatever. On Linux/etc we have a <code>drand48()</code> which generates 48 random bits. I'd like a similar function/class for C++ or C# which can generate more than 32 bits of randomness and which low-order bits are equally as random as high-order bits.</p>
+
+<p>It doesn't have to be cryptographically secure but it must not use or be based on the C-language <code>rand()</code> or .NET <code>System.Random</code>.</p>
+
+<p>Any source code, links to source, etc. would be appreciated! Failing that, what TYPE of RNG should I be looking for?</p>
+,2012-09-11 00:41:28.240000000,4,,2008-08-03 02:05:59.620000000,2,2015-12-17 11:17:22.100000000,2015-12-17 11:17:22.100000000,,5550041,0,0,1,29,<c#><c++><random>,Robust Random Number Generation,1106,Pas de correspondance trouvée pour la recherche de l'auteur
+717,799,3,<p>I wrote a windows service using VB that read some legacy data from Visual Foxpro Databases to be inserted in SQL 2005. The problem is this use to run fine in Windows server 2003 32-Bits, but the client recently moved to Windows 2003 64-Bits and now the service won't work. I'm getting a message the the VFP .NET OLEdb provider is not found. I researched and everything seems to point out that there is no solution. Any Help, please...</p>
+,,0,,2008-08-03 15:07:10.073000000,0,2014-11-25 20:41:05.157000000,2014-11-25 20:41:05.157000000,,2641576,0,0,1,18,<.net><sql-server-2005><oledb><legacy><visual-foxpro>,Why doesn't VFP .NET OLEdb provider work in 64 bit Windows?,9587,Pas de correspondance trouvée pour la recherche de l'auteur
+730,0,0,<p>Why not use <a href="http://www.microsoft.com/sql/editions/express/default.mspx" rel="nofollow noreferrer">SQL Server 2005 Express edition</a>? </p>
+
+<p>It really depends on what you mean by "embedded" - but you can redistribute SQLServer2005E with your applications and the user never has to know it's there.</p>
+
+<p><a href="http://msdn.microsoft.com/en-us/library/ms165660.aspx" rel="nofollow noreferrer">Embedding SQL Server Express in Applications</a></p>
+
+<p><a href="http://msdn.microsoft.com/en-us/library/bb264562.aspx" rel="nofollow noreferrer">Embedding SQL Server Express into Custom Applications</a></p>
+,,1,,2008-08-03 15:34:17.523000000,0,2013-01-28 04:20:26.910000000,2013-01-28 04:20:26.910000000,user1873471,0,0,705,2,3,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+759,0,0,<p>No, there are many applications built with VS2005 that have to support Windows XP, 2000, NT, the whole stack. The issue is that (by default) VS2005 wants to use libraries/exports not present on NT.</p>
+
+<p>See <a href="http://www.mombu.com/microsoft/windows-programmer-win32/t-vs2005-and-nt4-392831.html" rel="noreferrer">this thread</a> for some background.</p>
+
+<p>Then start limiting your dependencies via preprocessor macros, and avoiding APIs which aren't supported on NT.</p>
+,,1,,2008-08-03 16:54:12.277000000,0,2008-08-03 16:54:12.277000000,,,0,0,609,2,7,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+764,0,0,<p>Sounds to me like you're trying to combine things that shouldn't be combined.  If you need to do different processing in your view depending on if it's a User or Group object you're trying to look at then you should use two different view functions.</p>
+
+<p>On the other hand there can be common idioms you'd want to extract out of your object&#95;detail type views... perhaps you could use a decorator or just helper functions?</p>
+
+<p>-Dan</p>
+,,0,,2008-08-03 17:40:25.553000000,0,2008-08-03 17:40:25.553000000,,,0,0,742,2,0,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+766,1619,6,<p>I can get Python to work with Postgresql but I cannot get it to work with MySQL. The main problem is that on the shared hosting account I have I do not have the ability to install things such as Django or PySQL, I generally fail when installing them on my computer so maybe it's good I can't install on the host.</p>
+
+<p>I found <a href="http://barryp.org/software/bpgsql/" rel="noreferrer">bpgsql</a> really good because it does not require an install, it's a single file that I can look at, read and then call the functions of. Does anybody know of something like this for MySQL?</p>
+,,0,,2008-08-03 17:44:07.450000000,1,2015-10-10 20:00:39.080000000,2012-05-31 16:57:58.230000000,,487855,1384652,0,1,26,<python><mysql><postgresql><bpgsql>,Python and MySQL,2578,Pas de correspondance trouvée pour la recherche de l'auteur
+802,0,0,<p>I uploaded it and got an internal error</p>
+
+<pre><code>Premature end of script headers
+</code></pre>
+
+<p>After much playing around, I found that if I had</p>
+
+<pre><code>import cgi
+import cgitb; cgitb.enable()
+import MySQLdb
+</code></pre>
+
+<p>It would give me a much more useful answer and say that it was not installed, you can see it yourself -> <a href="http://woarl.com/db.py" rel="nofollow noreferrer">http://woarl.com/db.py</a></p>
+
+<p>Oddly enough, this would produce an error</p>
+
+<pre><code>import MySQLdb
+import cgi
+import cgitb; cgitb.enable()
+</code></pre>
+
+<p>I looked at some of the other files I had up there and it seems that library was one of the ones I had already tried.</p>
+,,0,,2008-08-03 20:07:05.290000000,0,2008-08-04 21:46:00.797000000,2008-08-04 21:46:00.797000000,Teifion,1384652,1384652,766,2,5,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1028,0,0,<p>The VB code looks something like this:</p>
+
+<pre><code>hMutex = CreateMutex(ByVal 0&amp;, 1, ByVal 0&amp;)
+</code></pre>
+
+<p>The first parameter is a pointer to an <code>SECURITY_ATTRIBUTES</code> structure. If you don't know what it is, you don't need it. Pass NULL (0).</p>
+
+<p>The second parameter is <code>TRUE</code> (non-zero, or 1) if the calling thread should take ownership of the mutex. <code>FALSE</code> otherwise.</p>
+
+<p>The third parameter is the mutex name and may be NULL (0), as shown. If you need a named mutex, pass the name (anything unique) in. Not sure whether the <code>VB</code> wrapper marshals the length-prefixed <code>VB</code> string type (<code>BSTR</code>) over to a null-terminated Ascii/Unicode string if not, you'll need to do that and numerous examples are out there.</p>
+
+<p>Good luck!</p>
+,,0,,2008-08-04 04:58:40.300000000,0,2013-02-07 13:22:14.680000000,2013-02-07 13:22:14.680000000,,395659,0,947,2,6,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1041,17198991,10,<p>I'm looking for a robust, easy-to-use, regular expression evaluator for native C++, either platform-independent or Windows-specific.</p>
+
+<p>Requirements:</p>
+
+<ul>
+<li>Can't use Boost or ACE regex libraries (unfortunately)</li>
+<li>Can't use .NET Regex (or any managed code)</li>
+</ul>
+
+<p>The main requirement is that it should be standalone and open.</p>
+,2016-05-16 01:37:15.330000000,5,,2008-08-04 05:50:00.337000000,1,2016-12-20 08:44:46.230000000,2011-12-02 18:01:27.820000000,Mark Biek,396458,0,0,1,15,<c++><regex>,Easy-to-Use Regular Expression Support in C++?,967,Pas de correspondance trouvée pour la recherche de l'auteur
+1051,0,0,<p>The typical method is as follows. You've said you want to do this in C# so here goes...</p>
+
+<ol>
+<li>If you don't know which process has the file locked, you'll need to examine each process's handle list, and query each handle to determine if it identifies the locked file. Doing this in C# will likely require P/Invoke or an intermediary C++/CLI to call the native APIs you'll need.</li>
+<li>Once you've figured out which process(es) have the file locked, you'll need to safely inject a small native DLL into the process (you can also inject a managed DLL, but this is messier, as you then have to start or attach to the .NET runtime).</li>
+<li>That bootstrap DLL then closes the handle using CloseHandle etc.</li>
+</ol>
+
+<p>Essentially: the way to unlock a "locked" file is to inject a DLL into the offending process's address space and close it yourself. You can do this using native or managed code. No matter what, you're going to need a small amount of native code or at least P/Invoke into the same.</p>
+
+<p>Helpful links:</p>
+
+<ul>
+<li><a href="http://www.codeproject.com/KB/threads/winspy.aspx" rel="noreferrer">http://www.codeproject.com/KB/threads/winspy.aspx</a></li>
+<li><a href="http://damianblog.com/2008/07/02/net-code-injection/" rel="noreferrer">http://damianblog.com/2008/07/02/net-code-injection/</a></li>
+</ul>
+
+<p>Good luck!</p>
+,,0,,2008-08-04 06:15:30.363000000,0,2008-08-04 06:26:43.900000000,2008-08-04 06:26:43.900000000,user2189331,0,0,1040,2,12,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1064,1096,3,<p>I'd like to display ~100 floating cubes using <code>DirectX</code> or <code>OpenGL</code>.</p>
+
+<p>I'm looking for either some sample source code, or a description of the technique. I know this kind of thing is easy for you accomplished '3D' gurus out there but I have enough trouble getting even one cube to display correctly.</p>
+
+<p>I've combed the net for a good series of tutorials and although they talk about how to do <code>3D</code> primitives, what I can't find is information on how to do large numbers of <code>3D</code> primitives - <code>cubes</code>, <code>spheres</code>, <code>pyramids</code>, and so forth.</p>
+,,0,,2008-08-04 06:51:20.323000000,0,2016-10-25 14:37:31.807000000,2016-03-16 03:07:55.777000000,user5857081,0,0,0,1,9,<language-agnostic><opengl><3d><directx>,Displaying 100 Floating Cubes Using DirectX OR OpenGL,1067,Pas de correspondance trouvée pour la recherche de l'auteur
+1073,0,0,<p>My first choice would be a dedicated heap tool such as <a href="https://support.microsoft.com/en-us/kb/286470" rel="nofollow noreferrer">pageheap.exe</a>.</p>
+
+<p>Rewriting new and delete might be useful, but that doesn't catch the allocs committed by lower-level code. If this is what you want, better to Detour the <code>low-level alloc API</code>s using Microsoft Detours.</p>
+
+<p>Also sanity checks such as: verify your run-time libraries match (release vs. debug, multi-threaded vs. single-threaded, dll vs. static lib), look for bad deletes (eg, delete where delete [] should have been used), make sure you're not mixing and matching your allocs.</p>
+
+<p>Also try selectively turning off threads and see when/if the problem goes away.</p>
+
+<p>What does the call stack etc look like at the time of the first exception?</p>
+,,0,,2008-08-04 07:51:02.997000000,0,2015-09-01 17:32:32.120000000,2015-09-01 17:32:32.120000000,,45459,0,1069,2,19,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1086,0,0,<p>My first action would be as follows:</p>
+
+<ol>
+<li>Build the binaries in "Release" version but creating debug info file (you will find this possibility in project settings).</li>
+<li>Use Dr Watson as a defualt debugger (DrWtsn32 -I) on a machine on which you want to reproduce the problem.</li>
+<li>Repdroduce the problem. Dr Watson will produce a dump that might be helpful in further analysis. </li>
+</ol>
+
+<p>Another try might be using WinDebug as a debugging tool which is quite powerful being at the same time also lightweight. </p>
+
+<p>Maybe these tools will allow you at least to narrow the problem to certain component.</p>
+
+<p>And are you sure that all the components of the project have correct runtime library settings (C/C++ tab, Code Generation category in VS 6.0 project settings)?</p>
+,,0,,2008-08-04 08:26:55.967000000,0,2008-08-04 08:26:55.967000000,,,0,2090742,1069,2,0,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1155,0,0,<p>My quick hints.</p>
+
+<p>Instead of:<br>
+<code>void strrep(char *input, char *search, char *replace)</code><br>
+try:<br>
+<code>void strrep(char *&amp;input, char *search, char *replace)</code></p>
+
+<p>and than in the body:<br>
+<code>input = realloc(input, strlen(input) + delta);</code></p>
+
+<p>Generally read about passing function arguments as values/reference and realloc() description :).</p>
+,,1,,2008-08-04 11:20:58.657000000,0,2008-08-04 11:20:58.657000000,,,0,2090742,1145,2,0,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1183,0,0,<p>The GNU C library regular expressions facility (regcomp(), regexec() and friends) is broken. Use libetre instead; the function signatures match the ones provided by glibc.
+<a href="http://laurikari.net/tre/" rel="nofollow noreferrer">http://laurikari.net/tre/</a></p>
+,,0,,2008-08-04 12:23:35.067000000,0,2008-09-20 07:27:23.973000000,,,0,0,1041,2,2,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1229,0,3,<p>I want to link to a specific slide in an online PowerPoint file, (e.g.  <code>http://www.example.com/hello.ppt</code>) but what I want is that when people click on my link, it goes straight to the nth slide.</p>
+
+<p>Is this possible?</p>
+,,0,,2008-08-04 13:38:18.677000000,2,2017-05-30 18:19:39.890000000,2014-05-15 14:46:04.547000000,Prakash,3589392,0,0,1,11,<hyperlink><powerpoint>,How do I hyperlink to a specific slide of a .ppt file?,21346,Pas de correspondance trouvée pour la recherche de l'auteur
+1260,0,0,<p>I found the answer. all you have to do is add #n after .ppt. </p>
+
+<p>For example, <a href="http://www.whatever.com/hello.ppt#4" rel="nofollow noreferrer">http://www.whatever.com/hello.ppt#4</a>  will take you straight to the 4th slide.</p>
+,,0,,2008-08-04 14:06:02.863000000,0,2016-12-20 08:38:48.867000000,2016-12-20 08:38:48.867000000,,1221571,0,1229,2,1,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1284,0,8,<p>I am looking for a tool that can detect malicious requests (such as obvious SQL injection gets or posts) and will immediately ban the IP address of the requester/add to a blacklist. I am aware that in an ideal world our code should be able to handle such requests and treat them accordingly, but there is a lot of value in such a tool even when the site is safe from these kinds of attacks, as it can lead to saving bandwidth, preventing bloat of analytics, etc.</p>
+
+<p>Ideally, I'm looking for a cross-platform (<code>LAMP/.NET</code>) solution that sits at a higher level than the technology stack; perhaps at the web-server or hardware level. I'm not sure if this exists, though.</p>
+
+<p>Either way, I'd like to hear the community's feedback so that I can see what my options might be with regard to implementation and approach.</p>
+,,0,,2008-08-04 14:40:58.050000000,1,2016-10-14 14:12:14.360000000,2016-09-11 20:49:24.593000000,Mark Biek,6715577,0,0,1,14,<sql><xss><sql-injection>,Catching SQL Injection and other Malicious Web Requests,5460,Pas de correspondance trouvée pour la recherche de l'auteur
+1313,74033,8,<p><a href="https://stackoverflow.com/questions/180/function-for-creating-color-wheels">Original Question</a></p>
+
+<p>I am looking for a function that attempts to quantify how "distant" (or distinct) two colors are. This question is really in two parts: </p>
+
+<ol>
+<li>What color space best represents human vision?</li>
+<li>What distance metric in that space best represents human vision (euclidean?)</li>
+</ol>
+,,1,,2008-08-04 15:08:13.143000000,20,2016-07-15 12:55:38.843000000,2017-05-23 12:17:56.830000000,,-1,2089740,0,1,41,<language-agnostic><colors>,Followup: Finding an accurate "distance" between colors,14011,Pas de correspondance trouvée pour la recherche de l'auteur
+1323,0,9,<p><a href="https://stackoverflow.com/questions/180/function-for-creating-color-wheels">Original Question</a></p>
+
+<p>If you are given N maximally distant colors (and some associated distance metric), can you come up with a way to sort those colors into some order such that the first M are also reasonably close to being a maximally distinct set?</p>
+
+<p>In other words, given a bunch of distinct colors, come up with an ordering so I can use as many colors as I need starting at the beginning and be reasonably assured that they are all distinct and that nearby colors are also very distinct (e.g., bluish red isn't next to reddish blue).</p>
+
+<p>Randomizing is OK but certainly not optimal.</p>
+
+<p><em>Clarification: Given some large and visually distinct set of colors (say 256, or 1024), I want to sort them such that when I use the first, say, 16 of them that I get a relatively visually distinct subset of colors. This is equivalent, roughly, to saying I want to sort this list of 1024 so that the closer individual colors are visually, the farther apart they are on the list.</em></p>
+,,0,,2008-08-04 15:14:47.517000000,5,2012-09-03 20:50:02.030000000,2017-05-23 12:26:00.663000000,,-1,2089740,0,1,16,<algorithm><language-agnostic><colors>,Followup: "Sorting" colors by distinctiveness,1859,Pas de correspondance trouvée pour la recherche de l'auteur
+1387,0,7,<p>This is an open-ended question.  What approaches should I consider?</p>
+,2015-02-10 17:14:18.230000000,1,,2008-08-04 16:30:46.347000000,2,2009-05-11 05:52:39.343000000,,,0,0,0,1,17,<.net><parallel-processing>,What are the current best options for parallelizing a CPU-intensive .NET app?,499,Pas de correspondance trouvée pour la recherche de l'auteur
+1425,0,0,<p>I think that you are after this</p>
+
+<pre><code>$username = $_SERVER['PHP_AUTH_USER'];
+$password = $_SERVER['PHP_AUTH_PW'];
+</code></pre>
+,,0,,2008-08-04 17:08:26.037000000,0,2008-08-04 17:08:26.037000000,,,0,1384652,1417,2,32,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1436,0,0,<p>I think we could also include non-.NET-specific approaches to parallel processing if those are among the best options to consider.</p>
+,,0,,2008-08-04 17:32:13.493000000,0,2008-08-04 17:32:13.493000000,,,0,0,1387,2,2,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1484,0,0,<pre><code>&gt;&gt;&gt; print int('01010101111',2)
+687
+&gt;&gt;&gt; print int('11111111',2)
+255
+</code></pre>
+
+<p>Another way.</p>
+,,0,,2008-08-04 18:34:45.520000000,0,2012-01-22 17:47:30.370000000,2012-01-22 17:47:30.370000000,lbrandy,86622,2089740,1476,2,62,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1515,0,0,<p>You should be able to check out the current version of the code and then create a git repository around it. Updating that and committing it to your local git repository should be painless. As should cloning it.</p>
+
+<p>The only catch is that you need to have them both ignore each other (I've done something similar with SVN) by messing with the appropriate ignore files. I'm presuming SourceSafe let's you ignore things. And you'll need to do certain operations twice (like telling both that you are deleting a file).</p>
+,,0,,2008-08-04 19:10:29.660000000,0,2008-08-04 19:10:29.660000000,,,0,2089740,1508,2,1,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1585,0,0,<p>I assume you don't mean <a href="http://www.cygwin.com/" rel="nofollow noreferrer">cygwin</a>, right?</p>
+
+<p>How about <a href="http://www.microsoft.com/windowsserver2003/technologies/management/powershell/default.mspx" rel="nofollow noreferrer">powershell</a>, then?</p>
+,,0,,2008-08-04 21:06:14.717000000,0,2008-11-03 18:15:19.357000000,2008-10-21 14:42:27.387000000,ΤΖΩΤΖΙΟΥ,6899,2089740,1584,2,2,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1602,0,0,<p>In all honesty, a combination of print and print_r() to print out the variables. I know that many prefer to use other more advanced methods but I find this the easiest to use.</p>
+
+<p>I will say that I didn't fully appreciate this until I did some Microprocessor programming at Uni and was not able to use even this.</p>
+,,2,2011-03-09 11:34:12.603000000,2008-08-04 21:28:44.810000000,0,2008-08-04 21:28:44.810000000,,,0,1384652,888,2,16,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1611,0,0,<p>I would check both IP and User Agent to see if they change</p>
+
+<pre><code>if ($_SESSION['user_agent'] != $_SERVER['HTTP_USER_AGENT']
+    || $_SESSION['user_ip'] != $_SERVER['REMOTE_ADDR'])
+{
+    //Something fishy is going on here?
+}
+</code></pre>
+,,6,,2008-08-04 21:38:05.603000000,0,2008-08-04 21:38:05.603000000,,,0,1384652,328,2,2,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1649,0,0,<p>If you are into web design and website creation then I recommend <a href="http://boagworld.com/" rel="nofollow noreferrer">Boagworld</a> and also <a href="http://therissingtonpodcast.co.uk/" rel="nofollow noreferrer">The Rissington podcast</a> even if you are not.</p>
+,,0,2008-09-19 23:57:26.630000000,2008-08-04 22:21:17.030000000,0,2008-08-04 22:21:17.030000000,,,0,1384652,1644,2,10,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1856,0,0,<p>This is an active area of research. There are literally oodles of academic papers on the subject. It's going to be difficult to give you assistance especially w/o more deatails. Are you looking for specific types of text? Fonts? English-only? Are you familiar with the academic literature? </p>
+
+<p>"Text detection" is a standard problem in any OCR (optical character recognition) system and consequently there are lots of bits of code on the interwebs that deal with it. </p>
+
+<p>I could start listing piles of links from google but I suggest you just do a search for "text detection" and start reading :). There is ample example code available as well.</p>
+,,0,,2008-08-05 03:24:27.840000000,0,2008-08-05 03:24:27.840000000,,,0,2089740,1848,2,10,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1857,0,0,<pre><code>&gt;&gt;&gt; import os
+&gt;&gt;&gt; print os.name
+posix
+&gt;&gt;&gt; import platform
+&gt;&gt;&gt; platform.system()
+'Linux'
+&gt;&gt;&gt; platform.release()
+'2.6.22-15-generic'
+</code></pre>
+
+<p>See: <a href="https://docs.python.org/2/library/platform.html" rel="noreferrer">platform � Access to underlying platform�s identifying data</a></p>
+,,2,,2008-08-05 03:27:03.760000000,0,2014-05-29 14:32:05.160000000,2014-05-29 14:32:05.160000000,,1031682,2089740,1854,2,408,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+1982,47086,4,<p>I was just wondering if there is an elegant way to set the maximum CPU load for a particular thread doing intensive calculations. 
+<br/><br/>Right now I have located the most time consuming loop in the thread (it does only compression) and use <code>GetTickCount()</code> and <code>Sleep()</code> with hardcoded values. It makes sure that the loop continues for a certain period of time and than sleeps for a certain minimal time. It more or less does the job i.e. guarantees that the thread will not use more than 50% of CPU. <br>However behavior is dependent on the number of CPU cores (huge disadvantage) and simply ugly (smaller disadvantage :)). <br>Any ideas?</p>
+,,1,,2008-08-05 07:11:08.427000000,3,2016-05-11 05:53:38.503000000,2016-05-11 05:53:38.503000000,,116,2090742,0,1,32,<c++><performance><cpu><throttle>,CPU throttling in C++,3130,Pas de correspondance trouvée pour la recherche de l'auteur
+2092,0,5,<p>Looking for books or other references that discuss actually <em>"how"</em> to write a code coverage tool in Java; some of the various techniques or tricks - source vs. byte code instrumentation. This is for a scripting language that generates java byte code under the hood.</p>
+,,0,,2008-08-05 11:15:16.953000000,0,2016-10-13 12:50:44.040000000,2015-12-15 05:55:55.830000000,Ned Batchelder,2833965,0,0,1,15,<java><testing><coldfusion><code-coverage>,How to get started "writing" a code coverage tool?,1799,Pas de correspondance trouvée pour la recherche de l'auteur
+2216,0,0,<p>Thxm, Mc! <a href="http://asm.objectweb.org" rel="nofollow noreferrer">http://asm.objectweb.org</a>/ is another one. <em>Excellent</em> documentation on byte code instrumentation, but nothing "directly" aimed at writing a coverage tool - just some hints or ideas.</p>
+,,0,,2008-08-05 12:50:59.020000000,0,2016-10-13 12:50:44.040000000,2016-10-13 12:50:44.040000000,,1571180,0,2092,2,2,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+2364,2390,8,<p>//Yes, Virginia, there is a wikipedia.</p>
+
+<p>What I'm asking here is what you've found unit testing to be in your own practice. </p>
+
+<p>It would be helpful to know the pros, cons, obstacles to introducing unit testing, flaws in the unit testing process, value gained by unit testing, and so on that the developers here have observed in their day to day practice.</p>
+
+<p><strong>What we're doing:</strong>  </p>
+
+<p>I work on a web application w/ an Oracle backend. </p>
+
+<p>The application has been in production for 8+ years, and there are ongoing enhancement efforts along with the maintenance work.</p>
+
+<p>My development team does Unit Test Scripts (UTS) that aim to walk a developer through the unit test of a given code package. </p>
+
+<p>These UTS are 2-20 page Word documents that describe the purpose of the package, the structure, and elaborate on given modules within a package. </p>
+
+<p>The UTS concludes with a section that describes an Application Test of the package.</p>
+
+<p>This doesn't sound like unit testing to me. It sounds a lot more like system integration testing w/ a description of the package. </p>
+
+<p>It certainly is not automated.</p>
+
+<p>With our UTS practice in its current state, managing/editing/follwing the documents is not a trivial task. And when enhancements or maintenance work to a given package is needed, there are not strict testing procedures put in place to guarantee outputs are satisfactory. </p>
+
+<p>Instead, we have this higher level UTS to follow, which does not come close to guaranteeing correct output in various code traces.</p>
+,2017-01-21 21:26:46.090000000,0,,2008-08-05 14:14:36.327000000,4,2016-02-17 14:33:30.670000000,2016-02-17 14:33:30.670000000,Chris Fournier,5473208,0,0,1,14,<unit-testing><tdd><sqa>,What is Your Experience with Unit Testing in Practice?,1898,Pas de correspondance trouvée pour la recherche de l'auteur
+2447,0,4,<p>Regarding Agile development, what are the best practices for testing security per release?</p>
+
+<p>If it is a monthly release, are there shops doing pen-tests every month?</p>
+,,0,,2008-08-05 15:05:00.170000000,1,2017-01-25 13:54:16.393000000,2017-01-25 13:54:16.393000000,,1205871,0,0,1,9,<security><agile>,Are there best practices for testing security in an Agile development shop?,384,Pas de correspondance trouvée pour la recherche de l'auteur
+2478,0,0,<p>Add the user id to the request for the ad:</p>
+
+<pre><code>&lt;img src="./ads/viagra.jpg?{user.id}"/&gt;
+</code></pre>
+
+<p>that way you can check what ads are seen by which users.</p>
+,,0,,2008-08-05 15:37:34.520000000,0,2008-08-05 15:37:34.520000000,,,0,309844,2472,2,10,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+2492,0,0,<p>Alright. From a theoretical point of view, given that the distortion is "arbitrary", and any solution requires you to model this arbitrary distortion, you obviously can't get an "answer". However, any solution is going to involve imposing (usually implicitly) some model of the distortion that may or may not reflect the reality of the situation.</p>
+
+<p>Since you seem to be most interested in models that presume some sort of local continuity of the distortion mapping, the most obvious choice is the one you've already tried: linear interpolaton between the nearest points. Going beyond that is going to require more sophisticated mathematical and numerical analysis knowledge.</p>
+
+<p>You are incorrect, however, in presuming you cannot expand this to more points. You can by using a least-squared error approach. Find the linear answer that minimizes the error of the other points. This is probably the most straight-forward extension. In other words, take the 5 nearest points and try to come up with a linear approximation that minimizes the error of those points. And use that. I would try this next.</p>
+
+<p>If that doesn't work, then the assumption of linearity over the area of N points is broken. At that point you'll need to upgrade to either a quadratic or cubic model. The math is going to get hectic at that point.</p>
+,,0,,2008-08-05 15:47:51.830000000,0,2008-08-05 15:47:51.830000000,,,0,2089740,1908,2,2,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+2511,0,0,<p><a href="http://en.wikipedia.org/wiki/Red-black_tree" rel="nofollow noreferrer">Red-black</a> is better than AVL for insertion-heavy applications. If you foresee relatively uniform look-up, then Red-black is the way to go. If you foresee a relatively unbalanced look-up where more recently viewed elements are more likely to be viewed again, you want to use <a href="http://en.wikipedia.org/wiki/Splay_tree" rel="nofollow noreferrer">splay trees</a>.</p>
+,,0,,2008-08-05 15:59:27.563000000,0,2013-02-07 17:28:39.787000000,2013-02-07 17:28:39.787000000,,237838,2089740,2481,2,3,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
+2536,0,0,<p>Use a non-standard name and id for the fields, so rather than "name" have "name_". Browsers will then not see it as being the name field. The best part about it is that you can do this to some but not all fields and it will autocomplete some but not all fields.</p>
+,,3,,2008-08-05 16:27:39.927000000,0,2008-08-05 16:27:39.927000000,,,0,1384652,2530,2,6,,,0,Pas de correspondance trouvée pour la recherche de l'auteur
