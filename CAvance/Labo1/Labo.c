@@ -4,6 +4,9 @@
 
 #define NOMFICHIER "FiJeux.dat"
 #define TITRELNMAX 100
+// EXIT CODES
+#define ERREUR_FICHIER_OUVERTURE -1
+#define SUCCES 0
 
 typedef struct jeu Jeu;
 struct jeu {
@@ -22,11 +25,14 @@ void mettreEnMajuscule(char cars[]) {
 	}
 }
 
-void majFichier() {
+int majFichier() {
 	FILE *fichier;
 	fopen_s(&fichier, NOMFICHIER, "rb+");
 	if (fichier == NULL) {
 		fopen_s(&fichier, NOMFICHIER, "w+");
+		if (fichier == NULL) {
+			return ERREUR_FICHIER_OUVERTURE;
+		}
 	}
 	Jeu jeuLu = { "",0,0 };
 	char titreJeuRecherche[TITRELNMAX];
@@ -45,13 +51,15 @@ void majFichier() {
 			fread_s(&jeuLu, sizeof(Jeu), sizeof(Jeu), 1, fichier);
 		}
 		if (feof(fichier)) {
+			// AKA => le jeu ne se trouve pas dans le fichier
 			Jeu nouveauJeu = { .nbAvis = 1,.moyNotes = nouvelleNote };
 			strcpy(nouveauJeu.titre, titreJeuRecherche);
 			fwrite(&nouveauJeu, sizeof(Jeu), 1, fichier);
 		}
 		else {
+			// MAJ de l'enregistrement et réécriture
 			jeuLu.nbAvis++;
-			jeuLu.moyNotes = (jeuLu.moyNotes*(jeuLu.nbAvis-1) + nouvelleNote) / jeuLu.nbAvis;
+			jeuLu.moyNotes = (jeuLu.moyNotes*(jeuLu.nbAvis - 1) + nouvelleNote) / jeuLu.nbAvis;
 			long deplacement = (-1) * (long)sizeof(Jeu);
 			int deplacementREalise = fseek(fichier, deplacement, SEEK_CUR);
 			fwrite(&jeuLu, sizeof(Jeu), 1, fichier);
@@ -62,13 +70,15 @@ void majFichier() {
 		gets_s(titreJeuRecherche, TITRELNMAX);
 	}
 	fclose(fichier);
+	return SUCCES;
 }
 
 
-void afficherFichier() {
+int afficherFichier() {
 	FILE *fichier;
 	fopen_s(&fichier, NOMFICHIER, "rb");
-
+	if (fichier == NULL)
+		return ERREUR_FICHIER_OUVERTURE;
 	Jeu jeuLu = { "",0,0 };
 	fread_s(&jeuLu, sizeof(Jeu), sizeof(Jeu), 1, fichier);
 	while (!feof(fichier)) {
@@ -76,11 +86,12 @@ void afficherFichier() {
 		fread_s(&jeuLu, sizeof(Jeu), sizeof(Jeu), 1, fichier);
 	}
 	fclose(fichier);
+	return SUCCES;
 }
 
-void main() {
-
-
-	majFichier();
-	afficherFichier();
+int main() {
+	int resultatMajFichier = majFichier();
+	if (resultatMajFichier != SUCCES)
+		return resultatMajFichier;
+	return afficherFichier();
 }
