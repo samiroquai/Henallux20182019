@@ -41,6 +41,70 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "Labo2Ex1",
+            "runOptions": {},
+            "options": {
+                "cwd": "S02EX01"
+            },
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "Labo.c",
+                "-oLabo",
+                "-g"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Labo2Ex2",
+            "runOptions": {},
+            "options": {
+                "cwd": "S02EX02"
+            },
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "Labo.c",
+                "-oLabo",
+                "-g"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        ,
+        {
+            "label": "Labo2Ex3",
+            "runOptions": {},
+            "options": {
+                "cwd": "S02EX03"
+            },
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "Labo.c",
+                "-oLabo",
+                "-g"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

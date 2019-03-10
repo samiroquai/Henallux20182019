@@ -23,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ValuesController.cs" />
+    <Compile Remove="Infrastructure\SwaggerExtensions.cs" />
   </ItemGroup>
 </Project>

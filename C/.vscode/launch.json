@@ -21,6 +21,33 @@
             "program": "${workspaceFolder}/S01EX02/Labo",
             "args": [],
             "cwd": "${workspaceFolder}/S01EX02"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Labo2Ex1",
+            "name": "Labo2Ex1",
+            "program": "${workspaceFolder}/S02EX01/Labo",
+            "args": [],
+            "cwd": "${workspaceFolder}/S02EX01"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Labo2Ex2",
+            "name": "Labo2Ex2",
+            "program": "${workspaceFolder}/S02EX02/Labo",
+            "args": [],
+            "cwd": "${workspaceFolder}/S02EX02"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Labo2Ex3",
+            "name": "Labo2Ex3",
+            "program": "${workspaceFolder}/S02EX03/Labo",
+            "args": [],
+            "cwd": "${workspaceFolder}/S02EX03"
         }
         
     ]
