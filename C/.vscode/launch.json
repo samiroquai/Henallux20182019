@@ -48,6 +48,15 @@
             "program": "${workspaceFolder}/S02EX03/Labo",
             "args": [],
             "cwd": "${workspaceFolder}/S02EX03"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Labo2Ex4",
+            "name": "Labo2Ex4",
+            "program": "${workspaceFolder}/S02EX04/Labo",
+            "args": [],
+            "cwd": "${workspaceFolder}/S02EX04"
         }
         
     ]

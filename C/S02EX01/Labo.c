@@ -9,19 +9,16 @@ bool estHexadecimal(char *input){
         return false;
     input++;
     char secondChar=*input;
-    if(secondChar!='X')
+    if(secondChar!='X' && secondChar!='x')
         return false;
     input++;
-    while(*input!='\0'){
-        char currentChar=*input;
-        if(!(   (currentChar>='0' && currentChar <='9') || 
-                (currentChar>='A' && currentChar<='F') || 
-                (currentChar>='a' && currentChar<='f')))
-            
-            return false;
+    while(*input!='\0' 
+    && (isdigit(*input) || 
+        (*input>='A' && *input<='F') ||
+        (*input>='a' && *input<='f'))){
         input++;
     }
-    return true;
+    return *input=='\0';
 }
 
 void main(){

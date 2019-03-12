@@ -43,6 +43,7 @@ Option choixLu()
 
 void ajouter()
 {
+    //a: append , r: read, w: write 
     FILE *fichier = fopen(NOMFICHIER, "ab");
     if (fichier == NULL)
     {
@@ -131,7 +132,7 @@ void rechercherJeuParTitre()
     puts("Quel jeu souhaitez-vous afficher?");
     char titreJeuARechercher[TITRELNMAX];
     gets(titreJeuARechercher);
-    FILE *fichier = fopen(NOMFICHIER, "rb+");
+    FILE *fichier = fopen(NOMFICHIER, "rb");
     if (fichier == NULL)
     {
         puts("Erreur d'ouverture du fichier");
@@ -160,7 +161,7 @@ void rechercherJeuxParNombreDavis()
     int nbrAvisARechercher;
     scanf("%d", &nbrAvisARechercher);
     getchar();
-    FILE *fichier = fopen(NOMFICHIER, "rb+");
+    FILE *fichier = fopen(NOMFICHIER, "rb");
     if (fichier == NULL)
     {
         puts("Erreur d'ouverture du fichier");
@@ -185,17 +186,17 @@ void imprimer()
     getchar();
     switch (choix)
     {
-    case TOUT:
-        imprimerTousLesJeux();
-        break;
-    case JEU_PARTITRE:
-        rechercherJeuParTitre();
-        break;
-    case JEU_PARNOMBREDAVIS:
-        rechercherJeuxParNombreDavis();
-        break;
-    default:
-        puts("Option d'impression non supportée");
+        case TOUT:
+            imprimerTousLesJeux();
+            break;
+        case JEU_PARTITRE:
+            rechercherJeuParTitre();
+            break;
+        case JEU_PARNOMBREDAVIS:
+            rechercherJeuxParNombreDavis();
+            break;
+        default:
+            puts("Option d'impression non supportée");
     }
 }
 void main()
